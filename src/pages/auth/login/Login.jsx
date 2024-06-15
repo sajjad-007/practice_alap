@@ -2,8 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
+  const auth = getAuth();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -20,7 +22,20 @@ const Login = () => {
       // alert(JSON.stringify(values, null, 2));
       resetForm()
       console.log(values);
-    },
+      signInWithEmailAndPassword(auth, values.email, values.password)
+        .then((userCredential) => {
+          // Signed in 
+          console.log("Signed in");
+          // const user = userCredential.user;
+          // console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
+          console.log(error);
+        });
+          },
   });
   return (
     <div className="p-[40px] flex justify-center items-center flex-col gap-5">
@@ -57,7 +72,7 @@ const Login = () => {
        ) : null}
         </div>
       </div>
-      <button className="btn">log in</button>
+      <button type='submit' className="btn">log in</button>
      </form>
      <p>Don't have an account? <Link className='text-[#bf6297]' to='/registration'>Sign up</Link></p>
     </div>

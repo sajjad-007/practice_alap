@@ -2,9 +2,16 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { getAuth, createUserWithEmailAndPassword,sendEmailVerification, updateProfile,  } from "firebase/auth";
+import { getDatabase, push, ref, set } from "firebase/database";
+import { useNavigate } from "react-router-dom";
+
 
 
 const Registration = () => {
+  const auth = getAuth();
+  const db = getDatabase();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -24,9 +31,35 @@ const Registration = () => {
         .required('Kindly enter your password'),
     }),
     onSubmit: (values,{resetForm }) => {
-      // alert(JSON.stringify(values, null, 2));
       resetForm()
-      console.log(values);
+      createUserWithEmailAndPassword(auth, values.email, values.password)
+        .then((userCredential) => {
+          // Signed up 
+          const user = userCredential.user;
+          // console.log(user);
+          updateProfile(auth.currentUser, {
+            displayName: values.fullName, 
+            photoURL: ""
+          }).then(() => {
+            console.log("Profile updated!");
+            // ...
+            set(push(ref(db, 'users/' + user.uid)), {
+              fullName:  user.displayName,
+              email:  user.email,
+            });
+          })
+          sendEmailVerification(auth.currentUser)
+          .then(() => {
+            console.log('Email verification sent!');
+            navigate("/");
+            // ...
+          });
+          // ...
+        })
+        .catch((error) => {
+          console.log(error);
+          // ..
+      });
     },
   });
   return (
@@ -81,7 +114,7 @@ const Registration = () => {
       </div>
       <button className="btn" type='submit'>Sign up</button>
      </form>
-     <p>Don't have an account? <Link className='text-[#bf6297]' to='/'>Sign up</Link></p>
+     <p>Don't have an account? <Link className='text-[#bf6297]' to='/'>Sign In</Link></p>
     </div>
   )
 }
