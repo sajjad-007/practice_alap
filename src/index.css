@@ -9,7 +9,7 @@
 };
 @layer components{
     .btn{
-        @apply py-[15px] px-[25px] text-xl bg-purple-900 text-white block mt-4 rounded-md capitalize
+        @apply py-[15px] px-[50px] text-xl bg-purple-900 text-white block mt-4 rounded-md capitalize text-center font-bold
     }
 };
 @layer components{
