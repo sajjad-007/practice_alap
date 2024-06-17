@@ -6,11 +6,14 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from 'react-loader-spinner';
+import LoginGoogle from '../../../component/utilities/loginGoogle/LoginGoogle';
+// import { GoogleAuthProvider,signInWithPopup } from "firebase/auth";
 
 const Login = () => {
   const auth = getAuth();
   const navigate = useNavigate();
   const [btnLoad,setBtnLoad] = useState(false)
+  
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -47,12 +50,16 @@ const Login = () => {
           setBtnLoad(false)
         });
           },
-          // ...
+    // ...
   });
+
+  // sign in with google
+ 
   return (
     <div className="p-[40px] flex justify-center items-center flex-col gap-5">
       <ToastContainer />
       <h2 className='h2_heading'>Login Page</h2>
+      <LoginGoogle />
      <form onSubmit={formik.handleSubmit}>
       <div className='flex flex-col gap-5 items-center justify-center'>
         <div>
@@ -104,9 +111,6 @@ const Login = () => {
       </button>
      </form>
      <p>Don't have an account? <Link className='text-[#bf6297]' to='/registration'>Sign up</Link></p>
-      <div className="modal">
-      a
-      </div>
     </div>
   )
 }
