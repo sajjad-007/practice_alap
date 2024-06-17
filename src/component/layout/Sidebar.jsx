@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { useSelector, useDispatch } from 'react-redux'
+import { userUpdate } from '../../slice/authSlice';
 
 
 const Sidebar = () => {
@@ -14,6 +15,9 @@ const Sidebar = () => {
     signOut(auth).then(() => {
       // Sign-out successful.
       navigate('/')
+      window.localStorage.clear();
+      dispatch(userUpdate(null))
+      // dispatch(UserDataCon(null))
     }).catch((error) => {
       // An error happened.
       console.log(error);
