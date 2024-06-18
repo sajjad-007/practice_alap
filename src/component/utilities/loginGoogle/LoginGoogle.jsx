@@ -17,6 +17,7 @@ const LoginGoogle = () => {
             const user = result.user;
             // IdP data available using getAdditionalUserInfo(result)
             // ...
+            localStorage.setItem("userDataInfo", JSON.stringify(user));
             navigate('/home')
 
           }).catch((error) => {
@@ -28,7 +29,7 @@ const LoginGoogle = () => {
             // The AuthCredential type that was used.
             const credential = GoogleAuthProvider.credentialFromError(error);
             // ...
-            })
+          })
     
     }
         
