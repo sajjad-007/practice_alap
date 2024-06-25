@@ -7,14 +7,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from 'react-loader-spinner';
 import LoginGoogle from '../../../component/utilities/loginGoogle/LoginGoogle';
-// import { useSelector, useDispatch } from 'react-redux'
-// import { GoogleAuthProvider,signInWithPopup } from "firebase/auth";
+import { useSelector } from 'react-redux';
+
 
 const Login = () => {
   const auth = getAuth();
   const navigate = useNavigate();
-  // const count = useSelector((state) => state.UserDataCon.value)
   const [btnLoad,setBtnLoad] = useState(false)
+  const data = useSelector((state) => state.UserDataCon.value)
+  // console.log(data);
   
   const formik = useFormik({
     initialValues: {
@@ -35,12 +36,12 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in  
         const user = userCredential.user;
-        console.log(user);
+        // console.log(user);
         if (user.emailVerified) {
           toast.success("successfully signed in")
+          navigate('/home')
           localStorage.setItem("userDataInfo", JSON.stringify(user));
           resetForm()
-          navigate('/home')
           setBtnLoad(false)
           } else {
             toast.info("Verify your email first")
@@ -56,7 +57,6 @@ const Login = () => {
     // ...
   });
 
-  // sign in with google
  
   return (
     <div className="p-[40px] flex justify-center items-center flex-col gap-5">

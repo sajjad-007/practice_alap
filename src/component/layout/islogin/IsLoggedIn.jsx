@@ -1,17 +1,13 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Navigate, Outlet } from 'react-router-dom'
-import { useNavigate } from "react-router-dom";
+import { Outlet } from 'react-router-dom'
+import Login from '../../../pages/auth/login/Login';
 
 const IsLoggedIn = () => {
-    const navigate = useNavigate();
     const data = useSelector((state) => state.UserDataCon.value)
-
     return (
-        <div>
-            {data ? <Outlet/> : <Navigate to='/'/>}
-        </div>
-    // <div>IsLoggedIn</div>
+        
+          data ? <Outlet/> : <Login/>
   )
 }
 

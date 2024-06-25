@@ -12,6 +12,7 @@ import Notification from "./pages/notification/Notification";
 import Message from "./pages/message/Message";
 import Setting from "./pages/settings/Setting";
 import IsLoggedIn from "./component/layout/islogin/IsLoggedIn";
+import Error from "./pages/error/Error";
 
 
 
@@ -20,7 +21,6 @@ function App() {
     createRoutesFromElements(
       <Route>
         <Route element={<IsLoggedIn/>}>
-
           <Route element={<RootLayout/>}>
             <Route path='/home' element={<Home/>}/> 
             <Route path='/notification' element={<Notification/>}/> 
@@ -30,6 +30,7 @@ function App() {
         </Route>
         <Route path='/' element={<Login/>}/>
         <Route path='/registration' element={<Registration/>}/>
+        <Route path='*' element={<Error/>}/>
       </Route>
     )
   );

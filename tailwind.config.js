@@ -9,6 +9,8 @@ export default {
     extend: {
       colors: {
         'black': 'rgba(0, 0, 0, 0.701)',
+        'primary' : '#5F35F5'
+        
       },
     },
   },

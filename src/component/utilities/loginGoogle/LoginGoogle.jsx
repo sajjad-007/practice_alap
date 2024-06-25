@@ -17,9 +17,11 @@ const LoginGoogle = () => {
             const user = result.user;
             // IdP data available using getAdditionalUserInfo(result)
             // ...
-            localStorage.setItem("userDataInfo", JSON.stringify(user));
-            navigate('/home')
-
+            localStorage.setItem("userDataInfo", JSON.stringify(user))
+            setTimeout(()=>{
+              navigate('/home')
+            },2000)
+            
           }).catch((error) => {
             // Handle Errors here.
             const errorCode = error.code;

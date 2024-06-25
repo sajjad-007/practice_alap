@@ -43,7 +43,7 @@ const Registration = () => {
         .then((userCredential) => {
           // Signed up 
           const user = userCredential.user;
-          console.log(user);
+          // console.log(user);
           updateProfile(auth.currentUser, {
             displayName: values.fullName, 
             photoURL: ""
@@ -60,7 +60,7 @@ const Registration = () => {
               progress: undefined,
               theme: "light",
               });
-            set(push(ref(db, 'users/' + user.uid)), {
+            set(ref(db, 'users/' + user.uid), {
               fullName:  user.displayName,
               email:  user.email,
             });
