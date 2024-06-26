@@ -12,7 +12,7 @@ const Home = () => {
   //sign in data store
 
     return (
-    <div className='p-[30px] flex  gap-4'>
+    <div className='p-[30px] flex gap-4'>
         <div>
           <UserList/>
         </div>
